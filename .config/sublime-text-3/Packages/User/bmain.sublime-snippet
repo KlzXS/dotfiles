@@ -1,0 +1,225 @@
+<snippet>
+	<content><![CDATA[
+#include <bits/stdc++.h>
+using namespace std;
+
+//Just some handy things to shorten typing and secure types
+#define uint uint32_t
+#define long int64_t
+#define ulong uint64_t
+#define endl '\n'
+#define quit return 0
+
+//Debugging and optimizations
+#ifdef OFFLINE
+	#define logg(a) {cerr << #a << "(" << __LINE__ << "): " << a << ", ";}
+	#define logan(a) {cerr << #a << "(" << __LINE__ << "): " << a << '\n'; }
+	#define timeme 1.0*clock()/CLOCKS_PER_SEC
+#else
+	#define logg(a) {}
+	#define logan(a) {}
+	#define timeme {}
+#endif
+
+#define iotie ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); cerr.tie(nullptr);
+
+//Depricated. Use rr() and rre()
+#define forn(a, b, c) for(auto a = (b); a < (c); ++a)
+#define rforn(a, b, c) for(auto a = (b); a >= (c); --a)
+
+//Not really that usefull
+#define pb push_back
+#define mp make_pair
+#define mt make_tuple
+
+//Really useful on the other hand
+#define bp begin()
+#define ep end()
+#define be(a) (a).bp, (a).ep
+#define rbp rbegin()
+#define rep rend()
+#define rbe(a) (a).rbp, (a).rep
+
+//Just some common functions shortened
+#define srta(a) sort(be(a))
+#define suma(a) accumulate(be(a), 0LL)
+#define prefs(a, b) partial_sum(be(a), (b).bp)
+#define cnta(a, b) count(be(a), b)
+#define fore(a, b) for_each(be(a), (b))
+#define maxa(a) max_element(be(a))
+#define mina(a) min_element(be(a))
+#define reva(a) reverse(be(a))
+#define lba(a, b) lower_bound(be(a), (b))
+#define uba(a, b) upper_bound(be(a), (b))
+
+//Fancy push_back operator for std::vector
+template<class T, class U>
+void operator+= (vector<T>& a, const U& b){
+	a.pb((T)b);
+}
+
+//Fancy erase operator for std::vector
+template<class T>
+void operator-= (vector<T>& a, const ulong b){
+	a.erase(a.bp+b);
+}
+
+//A struct that calls for the input of the value on construction
+template<class T>
+struct in {
+	T x;
+	in () : x() { cin >> x; }
+	in (const T& x) : x(x) {}
+	in (T&& x) : x(x) {}
+	operator T& () { return x; }
+	operator const T& () const { return x; }
+	auto operator[](size_t b) { return x[b]; }
+	auto operator[](size_t b) const { return x[b]; }
+	auto begin() { return x.begin(); }
+	auto end() { return x.end(); }
+	auto begin() const { return x.begin(); }
+	auto end() const { return x.end(); }
+	auto size() const { return x.size(); }
+	auto length() { return x.length(); }
+	auto length() const { return x.length(); }
+};
+
+//A struct that calls for the output of the value on detruction
+//Can be constructed out of in<>
+//The other way around doesn't work
+template<class T>
+struct out {
+	T x;
+	out () : x() {}
+	out (const T& x) : x(x) {}
+	out (const in<T>& a) : x(a) {}
+	out (T&& x) : x(x) {}
+	out (in<T>&& x) : x(x) {}
+	operator T& () { return x; }
+	operator const T& () const { return x; }
+	auto operator[](size_t b) { return x[b]; }
+	auto operator[](size_t b) const { return x[b]; }
+	~out() { cout << x << ' '; }
+	auto begin() { return x.begin(); }
+	auto end() { return x.end(); }
+	auto begin() const { return x.begin(); }
+	auto end() const { return x.end(); }
+	auto size() const { return x.size(); }
+	auto length() { return x.length(); }
+	auto length() const { return x.length(); }
+};
+
+//Put in<> and out<> to good use
+typedef string str;
+typedef in<char> ichar;
+typedef out<char> ochar;
+typedef in<int> iint;
+typedef in<long> ilong;
+typedef out<int> oint;
+typedef out<long> olong;
+typedef in<string> istr;
+typedef out<string> ostr;
+
+typedef pair<int, int> pii;
+typedef pair<long, long> pll;
+
+typedef pair<iint, iint> ipii;
+typedef pair<ilong, ilong> ipll;
+
+typedef vector<int> vi;
+typedef vector<long> vl;
+typedef vector<iint> ivi;
+typedef vector<ilong> ivl;
+
+typedef vector<pii> vpii;
+typedef vector<pll> vpll;
+typedef vector<ipii> ivpii;
+typedef vector<ipll> ivpll;
+
+typedef vector<bool> vb;
+typedef vector<vb> vvb;
+
+typedef vector<vi> vvi;
+typedef vector<vl> vvl;
+
+typedef vector<vpii> vvpii;
+typedef vector<vpll> vvpll;
+
+typedef set<int> si;
+typedef set<pii> spii;
+typedef set<pll> spll;
+
+typedef queue<int> qi;
+typedef queue<long> ql;
+typedef queue<pii> qpii;
+typedef queue<pll> qpll;
+
+typedef stack<int> sti;
+typedef stack<long> stl;
+typedef stack<pii> stpii;
+typedef stack<pll> stpll;
+
+typedef map<int, int> mii;
+typedef map<long, long> mll;
+
+//The base for quicker for loop typing
+template<class T, int step>
+struct rr_{
+	struct valit{
+		T val;
+		T operator* () const { return val; }
+		T operator* () { return val; }
+		valit& operator++ () {
+			val += step;
+			return *this;
+		}
+		bool operator != (const valit& other) const {
+			if(step > 0) return val < other.val;
+			else return val >= other.val;
+		}
+	};
+
+	const valit l, r;
+	valit begin() { return l; }
+	valit end() { return r; }
+};
+
+//Quicker for loop in range [a,b) going from a to b upward
+//Makes the range of type of the second argument
+//If a > b stops the loop
+template<class T, class U>
+rr_<U, 1> rr(T a, U b){
+	return rr_<U, 1>{{a}, {b}};
+};
+
+//Quicker for loop in range [a, b] going from a to b downward
+//Makes the range of type of the first argument
+//If a < b stops the loop
+template<class T, class U>
+rr_<T, -1> rre(T a, U b){
+	return rr_<T, -1>{{a}, {b}};
+};
+
+//A gcd implementation that I was too lazy to remove so it stayed here
+template<class T>
+T gcd(T a, T b) {
+	T t;
+	while (a) { t = a; a = b % a; b = t; }
+	return b;
+}
+
+//TEMPLATE IS NOW OVER!
+//HAVE FUN!!!
+
+int main() {
+	iotie;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bmain</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+
+	<description>C++ file with bits/stdc++.h</description>
+</snippet>

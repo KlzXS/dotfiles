@@ -1,0 +1,11 @@
+{
+	"shell_cmd": "clang++ -std=c++14 -DOFFLINE -Wall -Wextra -g $file_name",
+	"working_dir": "$file_path",
+	"variants": [
+		{
+			"name": "Run",
+			"cmd": "ls"
+		}
+
+	]
+}

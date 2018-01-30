@@ -1,0 +1,75 @@
+<snippet>
+	<content><![CDATA[
+template<class T, int BSIZE>
+struct sqrtd{
+	//Helper structure for blocks/buckets
+	struct block{
+		int l, r;
+		T* x;
+		T res;
+		
+		block(){ x = nullptr; l = r = res = T(); }
+		block(int l, int r, int* x) : l(l), r(r), x(x) { update(); }
+		~block(){ x = nullptr; l = r = 0; res = T(); }
+		
+		void update(){
+			res = T();
+			for(int i = l; i < r; ++i){
+				res += x[i];
+			}
+		}
+	};
+	
+	T x [BSIZE*BSIZE];
+	block b[BSIZE];
+	
+	//To load up an array simply copy desired array into x
+	sqrtd(){
+		for(int i = 0; i < BSIZE; ++i){
+			b[i] = block(i*BSIZE, (i+1)*BSIZE, x);
+		}
+	}
+	
+	//Add val to pos
+	void add(int pos, int val){
+		x[pos] += val;
+		b[pos/BSIZE].update();
+	}
+	
+	//Set pos to val
+	void set(int pos, int val){
+		x[pos] = val;
+		b[pos/BSIZE].update();
+	}
+	
+	//Get reange query for [l, r]
+	int get(int l, int r){
+		int lb = l/BSIZE;
+		int rb = r/BSIZE;
+		
+		int res = 0;
+		
+		//If in same block/bucket
+		if(lb == rb){
+			for(int i = l; i <= r; ++i) res += x[i];
+			return res;
+		}
+		
+		//If they differ
+		for(int i = l; i < (lb+1)*BSIZE; ++i){ res += x[i]; }
+		for(int i = r; i >= (rb)*BSIZE; --i){ res += x[i]; }
+		for(auto i = lb+1; i < rb; ++i){ res += b[i].res; }
+			
+		return res;
+	}
+	
+};
+
+sqrtd<int, 1'000> s;
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>sqrtd</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

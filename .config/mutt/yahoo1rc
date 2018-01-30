@@ -1,0 +1,18 @@
+# vim: filetype=muttrc
+set imap_user = "azszwymmvqdi@yahoo.com"                       
+set smtp_url = "smtp://azszwymmvqdi@smtp.mail.yahoo.com:587/"       
+set from = "azszwymmvqdi@yahoo.com"                            
+set realname = "********************"                                  
+set mbox_type = Maildir
+set sendmail = "/usr/bin/msmtp -a yahoo1"
+set folder = "~/.Mail/Yahoo1"                     
+set spoolfile = "+Inbox"                                      
+set record = "+Sent"
+set header_cache = ~/.config/mutt/gmail/cache/headers            
+set message_cachedir = ~/.config/mutt/gmail/cache/bodies         
+set certificate_file = ~/.config/mutt/gmail/certificates  
+set ssl_starttls = yes
+set ssl_force_tls = yes
+
+mailboxes +Inbox1
+account-hook $folder "set imap_user=azszwymmvqdi@yahoo.com"

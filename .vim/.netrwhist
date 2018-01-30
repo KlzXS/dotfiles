@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/ajaw/.config/ranger'
+let g:netrw_dirhist_2='/home/ajaw/.offlineimap'
+let g:netrw_dirhist_3='/home/ajaw/Templates'
+let g:netrw_dirhist_4='/home/ajaw/kernelbuild'
+let g:netrw_dirhist_5='/home/ajaw/.config/youtube-viewer'

@@ -1,0 +1,6 @@
+*.sublime-keymap
+*.cache
+*.last-run
+*ca-bundle
+*.sublime-settings
+*.sublime-macro

@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+vector<vector<$1>> g;
+vector<bool> v;
+
+template<class T>
+void dfs(T n){
+	v[n] = true;
+	for(auto& i : g[n]){
+		if(v[i]) { continue; }
+		dfs(i);
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dfs</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

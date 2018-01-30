@@ -1,0 +1,42 @@
+# vim filetype=config
+# Here are settings for all accounts.
+[general]
+accounts = yahoo1
+starttls = yes
+ssl = yes
+autorefresh = 1
+
+pythonfile = ~/.config/Scripts/offlineimap.py
+
+[Account yahoo1]
+
+localrepository = yahoo1-local
+remoterepository = yahoo1-remote
+
+[Repository yahoo1-remote]
+type = IMAP
+remoteuser = azszwymmvqdi@yahoo.com
+remotepasseval = get_passwd("azsz")
+remotehost = imap.mail.yahoo.com
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+[Repository yahoo1-local]
+type = Maildir
+localfolders = ~/.Mail/Yahoo1
+
+# Here's an other more general example. Add your username, password and IMAP server information, which you can look this up on your email host's website.
+#[Account personal]
+#
+#localrepository = personal-local
+#remoterepository = personal-remote
+#
+#[Repository personal-remote]
+#type = IMAP
+#remoteuser = USER@DOMAIN.COM
+#remotepass = $PASSWORD
+#remotehost = SERVER-ADDRESS
+#sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+#
+#[Repository personal-local]
+#type = Maildir
+#localfolders = ~/.Mail/Personal

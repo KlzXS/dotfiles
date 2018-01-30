@@ -1,0 +1,27 @@
+<snippet>
+	<content><![CDATA[
+vector<vector<$1>> g;
+vector<bool> v;
+
+template<class T>
+void bfs(T n){
+	queue<T> q;
+	v[n] = true;
+	q.push(n);
+
+	while(!q.empty()){
+		T c = q.front();
+		q.pop();
+
+		for(auto& i : g[c]){
+			if(v[n]) { continue; }
+			q.push(i);
+		}
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bfs</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

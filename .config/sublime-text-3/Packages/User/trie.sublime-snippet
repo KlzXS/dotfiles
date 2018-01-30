@@ -1,0 +1,83 @@
+<snippet>
+	<content><![CDATA[
+
+//TRIE: O(|S| A)
+//S - length of string
+//A - size of alphabet
+template<int MAXN>
+struct trie{
+	//Helper structure
+	struct node{
+		bool flag;
+		char data;
+	};
+	
+	int cur;
+	node nodes[MAXN];
+	vector<int> e[MAXN];
+	
+	trie(){
+		cur = 1;
+		nodes[cur] = {1, '\0'};
+		++cur;
+	}
+	
+	void add_node(int p, node c){
+		nodes[cur] = c;
+		e[p].push_back(cur);
+		++cur;
+	}
+	
+	void add(string a){
+		int pos = 1;
+		for(auto& i : a){
+			bool ok = false;
+			int x = -1;
+			for(auto& j : e[pos])
+				if(nodes[j].data == i) { x = j; ok = true; break; }
+
+			if(ok) pos = x;
+			else { add_node(pos, {0, i}); pos = cur-1; }
+		}
+		nodes[pos].flag = 1;
+	}
+	
+	void remove(string a){
+		int pos = 1;
+		for(auto& i : a){
+			bool ok = false;
+			int x = -1;
+			for(auto& j : e[pos])
+				if(nodes[j].data == i) { x = j; ok = true; break; }
+
+			if(ok) pos = x;
+			else return;
+		}
+		nodes[pos].flag = 0;
+	}
+	
+	bool find(string a){
+		int pos = 1;
+		for(auto& i : a){
+			bool ok = false;
+			int x = -1;
+			for(auto& j : e[pos])
+				if(nodes[j].data == i) { x = j; ok = true; break; }
+
+			if(ok) pos = x;
+			else return false;
+		}
+		return nodes[pos].flag;
+	}
+	
+	
+	inline void operator+= (string a) { add(a); }
+	inline void operator-= (string a) { remove(a); }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>trie</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

@@ -1,0 +1,2 @@
+NAME=$(youtube-dl -e $1)
+youtube-dl -f bestaudio $1 -o - | ffmpeg -i - -b:a 192k -c:a libvorbis "${NAME}.ogg"
