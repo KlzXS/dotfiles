@@ -1,0 +1,2 @@
+gpg -d /home/ajaw/.passwd/prime.pass.gpg
+offlineimap -a yahoo1

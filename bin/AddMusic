@@ -1,0 +1,61 @@
+#!/usr/bin/python3
+
+import sys
+import os
+from subprocess import call, DEVNULL
+
+
+music = "/home/ajaw/Music/"
+playlists = "/home/ajaw/.config/mpd/playlists/"
+
+def updatePlaylist(playlist):
+    with open(playlist) as myfile:
+        files = [f.rstrip('\n') for f in myfile]
+
+    myfile = open(playlist, "w")
+    for f in files:
+        if os.path.isfile(music+f):
+            myfile.write(f)
+            myfile.write('\n')
+        else: print("Removed:", f, ". File doesn't exist.")
+
+def formName(path):
+    name = path[path.rfind("/")+1:]
+    folder = name[: name.find("_-_")]+"/"
+    if name.find("_-_") == -1: folder = ""
+    dest = music+folder+name
+    return [dest, folder, name]
+
+def moveFile(path):
+    arr = formName(path)
+    call(["mkdir", "-p", music+arr[1]])
+    call(["mv", path, arr[0]])
+
+
+def main(argv):
+    if len(argv) < 3:
+        print("Usage: python AddMusic.py [playlist] [music]")
+        exit(1)
+
+    playlist = playlists + argv[1] + ".m3u"
+    print(len(argv))
+    for f in argv[2:]:
+        arr = formName(f)
+        path = arr[0]
+        name = arr[1]+arr[2]
+        if os.path.isfile(path): continue
+        with open(playlist, "a") as myfile:
+            myfile.write(name)
+            myfile.write('\n')
+        print("Added ", name, " to the playlist ", playlist, " successfully.")
+        moveFile(f)
+
+    updatePlaylist(playlist)
+    print("Updating mpd")
+    call(["mpc", "update"])
+    call(["mpc", "clear"])
+    sleep(.100)
+    call(["mpc", "load", sys.argv[1]])
+    print("Done.")
+
+main(sys.argv)
