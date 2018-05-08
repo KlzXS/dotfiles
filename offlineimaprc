@@ -1,11 +1,10 @@
 # vim filetype=config
 # Here are settings for all accounts.
 [general]
-accounts = yahoo1
+accounts =  yahoo1
 starttls = yes
 ssl = yes
 autorefresh = 1
-
 pythonfile = ~/.config/Scripts/offlineimap.py
 
 [Account yahoo1]

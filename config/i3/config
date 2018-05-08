@@ -17,7 +17,8 @@ gaps inner 15
 gaps outer 15
 font pango:mono 9
 set $mod Mod4
-set $term urxvt
+#set $term urxvt
+set $term st
 set $video --no-startup-id bash ~/.config/Scripts/video.sh
 set $stoprec --no-startup-id killall ffmpeg & killall screenkey
 set $flash --no-startup-id bash ~/.config/Scripts/flash_win.sh
@@ -29,7 +30,7 @@ exec --no-stratup-id compton -b
 #Music player daemon:
 exec --no-startup-id mpd
 #Torrent daemon:
-exec --no-startup-id transmission-daemon
+#exec --no-startup-id transmission-daemon
 #Wifi applet:
 exec --no-startup-id nm-applet
 #Mount other drives:
@@ -43,8 +44,7 @@ exec --no-startup-id ~/.config/Scripts/screen.sh v
 #Launch Polybar where appropriate:
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 #Start the offlineimap daemon;
-#exec --no-startup-id killall python ~/.config/Scripts/offlineimap-daemon.py
-exec --no-startup-id python ~/.config/Scripts/offlineimap-daemon.py
+#exec --no-startup-id python ~/.config/Scripts/offlineimap-daemon.py
 #Add wallpaper:
 #exec --no-startup-id feh --bg-scale ~/.config/wall.png
 exec_always --no-startup-id wal -c -i ~/.config/wall.png
@@ -61,7 +61,7 @@ exec --no-startup-id unclutter
 
 ###---Audio and Music Definitions---###
 ##For mpc:
-set $music urxvt -e ncmpcpp
+set $music st -e ncmpcpp
 set $pause --no-startup-id mpc toggle
 set $trupause --no-startup-id mpc pause
 set $next --no-startup-id mpc next
@@ -124,7 +124,7 @@ for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 700 450
 for_window [instance="dropdown"] move position center
 for_window [instance="dropdown"] move scratchpad
-exec --no-startup-id $term -name dropdown -e tmux
+exec --no-startup-id urxvt -name dropdown -e tmux
 
 #Then I have a window running R I use for basic arithmetic
 #I'll later bind this to mod+a.
@@ -132,7 +132,7 @@ for_window [instance="math"] floating enable
 for_window [instance="math"] resize set 800 300
 for_window [instance="math"] move position center
 for_window [instance="math"] move scratchpad
-exec --no-startup-id $term -fn "xft:mono:pixelsize=24" -name math -e R -q
+exec --no-startup-id urxvt -fn "xft:mono:pixelsize=24" -name math -e R -q
 
 #Then I have a window running neomutt I use for email
 #I'll later bind this to mod+a.
@@ -140,20 +140,20 @@ for_window [instance="email"] floating enable
 for_window [instance="email"] resize set 1000 500
 for_window [instance="email"] move position center
 for_window [instance="email"] move scratchpad
-exec --no-startup-id $term -name email -e neomutt
+exec --no-startup-id urxvt -name email -e neomutt
 
 ###---Basic Bindings---###
 bindsym $mod+Return 		exec $term
-bindsym $mod+Shift+Return 	exec $term -e tmux
+bindsym $mod+Shift+Return 	exec urxvt
 
 bindsym $mod+Shift+space 	floating toggle
 bindsym $mod+space		focus mode_toggle
 
 bindsym $mod+Escape		workspace prev
-bindsym $mod+Shift+Escape 	exec i3-msg exit
+bindsym $mod+Shift+Escape 	exec prompt "Realy exit i3?" "i3-msg exit"
 
 bindsym $mod+BackSpace		exec $flash
-bindsym $mod+Shift+BackSpace	exec sudo reboot
+bindsym $mod+Shift+BackSpace exec prompt "Really reboot?" "sudo reboot"
 
 bindsym $mod+grave		exec $flash
 #bindsym $mod+asciitilde
@@ -173,7 +173,7 @@ bindsym $mod+e			[instance="email"] scratchpad show; move position center
 #bindsym $mod+Shift+e
 
 bindsym $mod+r 			exec $term -e ranger
-bindsym $mod+Shift+r		restart
+bindsym $mod+Shift+r		restart && polybar_launch
 
 bindsym $mod+t			split toggle
 bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 15
@@ -225,7 +225,7 @@ bindsym $mod+z			gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
 
 bindsym $mod+x			exec --no-startup-id ~/.config/i3/lock.sh
-bindsym $mod+Shift+x		exec sudo shutdown -h now
+bindsym $mod+Shift+x	exec prompt "Really shutdow?" "sudo shutdown -h now"
 
 bindsym $mod+c			exec $term -e weechat
 #bindsym $mod+Shift+c

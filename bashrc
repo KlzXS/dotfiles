@@ -1,7 +1,7 @@
 stty -ixon
 
 set -o vi
-bind ^l:clear-screen
+bind '\C-l:clear-screen'
 
 shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
 
@@ -55,7 +55,7 @@ alias dsc="screen.sh d"
 alias speedvid="bash ~/.config/Scripts/speedvid.sh"
 alias bw="wal -i ~/.config/wall.png"
 
-alias cl="clang++ -std=c++14 -Wall -Wextra -DOFFLINE"
+alias cl="clang++ -std=c++14 -Wall -Wextra"
 alias clg="clang++ -std=c++14 -Wall -Wextra -g -DOFFLINE"
 alias callgrind="valgrind --tool=callgrind"
 alias memchek="valgrind --tool=memcheck"

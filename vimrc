@@ -204,6 +204,12 @@ autocmd Filetype markdown inoremap ;3 ###<Space><Enter><++><Esc>kA
 autocmd Filetype markdown inoremap ;l --------<Enter>
 autocmd Filetype markdown map <F5> :!pandoc<space><C-r>%<space>-o<space><C-r>%.pdf<Enter><Enter>
 
+""" .cpp
+autocmd FileType cpp nnoremap <C-b> :w<Enter> :! clang++ -std=c++14 -Wall -Wextra -DOFFLINE %<Enter><Enter>
+
+"More of a general type keymapping
+nnoremap <C-s> :! /bin/bash<Enter>
+
 """.xml
 "autocmd FileType xml inoremap ;e <item><Enter><title><++></title><Enter><pubDate><Esc>:put<Space>=strftime('%c')<Enter>A</pubDate><Enter><link><++></link><Enter><description><++></description><Enter></item>
 autocmd FileType xml inoremap ;e <item><Enter><title><++></title><Enter><pubDate><Esc>:put<Space>=strftime('%c')<Enter>A</pubDate><Enter><link><++></link><Enter><description><![CDATA[<++>]]></description><Enter></item><Esc>5kcit
@@ -248,5 +254,6 @@ vnoremap H <gv
 "
 
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpForwardTrigger="<c-x>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsSnippetsDir="~/.vim/snips"

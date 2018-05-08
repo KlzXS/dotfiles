@@ -1,1 +1,3 @@
-</dev/urandom tr -dc 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`1234567890-=~!@#$%^&*()_+[]{};:\\|,./<>?""''' | head -c64;echo ''
+</dev/urandom tr -dc \
+'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`1234567890-=~!@#$%^&*()_+[]{};:\\|,./<>?""''' \
+| head -c64;echo ''

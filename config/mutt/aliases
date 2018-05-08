@@ -1,13 +1,17 @@
 #Here you can put email aliases. Here's an example:
 
-#alias luke luke@lukesmith.xyz
-
-#When you put "luke" as the recipient in mutt, it will automatically direct it to my email address.
+#alias name user@domain
+alias ramsey nikola5000@gmail.com
+alias marko marko.02.milenkovic@gmail.com
+alias tosic tosic.moma@gmail.com
+alias 100sic ivan100sic@gmail.com
+alias mymail azszwymmvqdi@yahoo.com
+alias jovan jarizanovic02@gmail.com
+alias takmicarvuk markovicvuk7777@gmail.com
+alias stdjole st.djole@yahoo.com
 
 #You can also put multiple emails under one aliases:
-
-alias project_members billy@gmail.com, sally@gmail.com, amanda@gmail.com, chad@gmail.com
+#alias project_members billy@gmail.com, sally@gmail.com, amanda@gmail.com, chad@gmail.com
 
 #With the above alias, if you put "project_members" as the recipient, mutt will fill in all the emails above as the recipients.
-#
 #This is extremely useful, so take advantage of it!
